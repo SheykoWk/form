@@ -6,23 +6,21 @@ import Users from "./components/Users";
 function App() {
   
   const [users, setUsers] = useState([])
-  const [formResponse, setFormResponse] = useState({})
 
   // const objForm = useForm()
   // console.log(objForm)
 
-  const { register, handleSubmit} = useForm();
+  const { register, handleSubmit, reset} = useForm();
+
+  const defaultValues = {name: '', email: '', about: '', options: '1'}
 
   const onSubmit = data => {
     console.log(data)
     setUsers([...users, data])
-    setFormResponse(data)};
+    reset(defaultValues)
+  };
   
-  //console.log(watch("example")); // watch input value by passing the name of it
-
-    const list = users.map(user => <Users data={user} key={user.name} />)
-
-    console.log(list)
+  const list = users.map(user => <Users data={user} key={user.name} />)
 
   return (
     <div>
@@ -33,6 +31,11 @@ function App() {
         <input {...register("email")} />
         <h1>Acerca de </h1>      
         <input {...register("about")} />
+        <select {...register("options")} >
+          <option value="1" >Opcion 1</option>
+          <option value="2" >Opcion 2</option>
+          <option value="3" >Opcion 3</option>
+        </select>
         <input type="submit" />
       </form>
       <div>
