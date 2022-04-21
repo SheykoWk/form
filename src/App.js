@@ -21,6 +21,11 @@ function App() {
     setUsers(filterUser)
   }
 
+  const editUser = (id) => {
+    const filterUser = users.filter((user) => user.id === id)
+    console.log(filterUser)
+  }
+
   const onSubmit = data => {
     const userObj = {...data, id}
     console.log(userObj)
@@ -37,13 +42,13 @@ function App() {
     }
   }
 
-  const list = users.map((user) => <Users data={user} handlerOnDelete={deleteUser} key={user.id} />)
+  const list = users.map((user) => <Users data={user} handlerOnEdit={editUser} handlerOnDelete={deleteUser} key={user.id} />)
 
   return (
     <div>
+      <h1>{cond().title}</h1>
+      <button onClick={() => setIsSpanish(!isSpanish)}>Cambiar idioma</button>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>{cond().title}</h1>
-        <button onClick={() => setIsSpanish(!isSpanish)}>Cambiar idioma</button>
         <h1 >{ cond().input1 }</h1>
         <input {...register("name")} />
         <h1>{ cond().input2 }</h1>
