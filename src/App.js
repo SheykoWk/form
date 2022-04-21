@@ -50,7 +50,7 @@ function App() {
       <button onClick={() => setIsSpanish(!isSpanish)}>Cambiar idioma</button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1 >{ cond().input1 }</h1>
-        <input {...register("name")} />
+        <input {...register("name")} value='hola grupo' />
         <h1>{ cond().input2 }</h1>
         <input {...register("email")} />
         <h1>{ cond().input3}</h1>      
