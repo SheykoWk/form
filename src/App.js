@@ -2,13 +2,16 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Form from "./components/Form";
 import Users from "./components/Users";
+import data from "./info.json"
+
+
+
+
 
 function App() {
   
   const [users, setUsers] = useState([])
-
-  // const objForm = useForm()
-  // console.log(objForm)
+  const [isSpanish, setIsSpanish] = useState(false)
 
   const { register, handleSubmit, reset} = useForm();
 
@@ -20,21 +23,29 @@ function App() {
     reset(defaultValues)
   };
   
-  const list = users.map(user => <Users data={user} key={user.name} />)
+  const cond = () => {
+    if(isSpanish){
+      return data.español
+    } else {
+      return data.english
+    }
+  }
+
+  const list = users.map((user, index) => <Users data={user} key={index} />)
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 >Nombre</h1>
+        <h1>{cond().title}</h1>
+        <button onClick={() => setIsSpanish(!isSpanish)}>Cambiar idioma</button>
+        <h1 >{ cond().input1 }</h1>
         <input {...register("name")} />
-        <h1>Email</h1>
+        <h1>{ cond().input2 }</h1>
         <input {...register("email")} />
-        <h1>Acerca de </h1>      
+        <h1>{ cond().input3}</h1>      
         <input {...register("about")} />
         <select {...register("options")} >
-          <option value="1" >Opcion 1</option>
-          <option value="2" >Opcion 2</option>
-          <option value="3" >Opcion 3</option>
+        {cond().options.map((item) =>  <option value={item.value} key={item.value} >{item.name}</option>)}
         </select>
         <input type="submit" />
       </form>
