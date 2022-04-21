@@ -1,25 +1,31 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { get, useForm } from "react-hook-form";
 import Form from "./components/Form";
 import Users from "./components/Users";
 import data from "./info.json"
-
-
-
-
 
 function App() {
   
   const [users, setUsers] = useState([])
   const [isSpanish, setIsSpanish] = useState(false)
+  const [id, setId] = useState(1) 
 
   const { register, handleSubmit, reset} = useForm();
 
   const defaultValues = {name: '', email: '', about: '', options: '1'}
 
+  const deleteUser = (id) => {
+
+    const filterUser = users.filter((user) => user.id == id)
+    console.log(filterUser)
+
+  }
+
   const onSubmit = data => {
-    console.log(data)
-    setUsers([...users, data])
+    const userObj = {...data, id}
+    console.log(userObj)
+    setId(id + 1)
+    setUsers([...users, userObj])
     reset(defaultValues)
   };
   
@@ -31,7 +37,7 @@ function App() {
     }
   }
 
-  const list = users.map((user, index) => <Users data={user} key={index} />)
+  const list = users.map((user) => <Users data={user} handlerOnDelete={deleteUser} key={user.id} />)
 
   return (
     <div>
