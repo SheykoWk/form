@@ -16,9 +16,9 @@ function App() {
 
   const deleteUser = (id) => {
 
-    const filterUser = users.filter((user) => user.id == id)
+    const filterUser = users.filter((user) => user.id !== id)
     console.log(filterUser)
-
+    setUsers(filterUser)
   }
 
   const onSubmit = data => {
